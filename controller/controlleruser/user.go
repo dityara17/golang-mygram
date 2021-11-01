@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/arfan21/golang-mygram/helper"
+	"github.com/arfan21/golang-mygram/model/modeluser"
 	"github.com/arfan21/golang-mygram/service/serviceuser"
 	"github.com/gin-gonic/gin"
 )
@@ -22,14 +23,14 @@ func New(srv serviceuser.ServiceUser) ControllerUser {
 }
 
 func (c *controller) Create(ctx *gin.Context) {
-	data := new(model.UserRequest)
+	data := new(modeluser.Request)
 
 	if err := ctx.ShouldBind(data); err != nil {
 		ctx.JSON(http.StatusBadRequest, helper.NewResponse(http.StatusBadRequest, "BAD REQUEST", nil, err))
 		return
 	}
 
-	response, err := c.srv.Create(data)
+	response, err := c.srv.Create(*data)
 
 	if err != nil {
 		ctx.JSON(helper.GetStatusCode(err), helper.NewResponse(helper.GetStatusCode(err), "BAD REQUEST", nil, err))

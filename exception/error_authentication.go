@@ -2,11 +2,11 @@ package exception
 
 import "encoding/json"
 
-type ErrorValidation struct {
+type ErrorAuthentication struct {
 	Message interface{} `json:"message"`
 }
 
-func (e ErrorValidation) Error() string {
+func (e ErrorAuthentication) Error() string {
 	err, _ := json.Marshal(e.Message)
 	return string(err)
 }

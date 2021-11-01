@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/arfan21/golang-mygram/server"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
@@ -11,4 +12,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
