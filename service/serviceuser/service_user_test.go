@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/arfan21/golang-mygram/entity"
-	"github.com/arfan21/golang-mygram/exception"
 	"github.com/arfan21/golang-mygram/model/modeluser"
 	"github.com/arfan21/golang-mygram/repository/repositoryuser"
+	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/jinzhu/copier"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
@@ -63,7 +63,6 @@ func (suite *ServiceUserTestSuite) TestCreateUser() {
 		resp, err := suite.srv.Create(suite.defaultPayload)
 		if assert.NoError(t, err) {
 			assert.Equal(t, resp.ID, repoReturn.ID)
-			assert.NotEqual(t, resp.Password, suite.defaultPayload.Password)
 			assert.NotEmpty(t, resp)
 			suite.defaultPayload.ID = resp.ID
 		}
@@ -78,7 +77,7 @@ func (suite *ServiceUserTestSuite) TestCreateUser() {
 		suite.repo.On("Create", mock.Anything).Return(repoReturn, nil).Once()
 		_, err := suite.srv.Create(suite.defaultPayload)
 		if assert.Error(t, err) {
-			_, ok := err.(exception.ErrorValidation)
+			_, ok := err.(validation.Errors)
 			assert.True(t, ok)
 		}
 	})
@@ -90,7 +89,7 @@ func (suite *ServiceUserTestSuite) TestCreateUser() {
 		suite.repo.On("Create", mock.Anything).Return(repoReturn, nil).Once()
 		_, err := suite.srv.Create(modeluser.Request{})
 		if assert.Error(t, err) {
-			_, ok := err.(exception.ErrorValidation)
+			_, ok := err.(validation.Errors)
 			assert.True(t, ok)
 		}
 	})
@@ -151,7 +150,7 @@ func (suite *ServiceUserTestSuite) TestUserLogin() {
 		_, err = suite.srv.Login(payloadLogin)
 
 		assert.Error(t, err)
-		_, ok := err.(exception.ErrorValidation)
+		_, ok := err.(validation.Errors)
 		assert.True(t, ok)
 	})
 }

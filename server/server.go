@@ -1,6 +1,9 @@
 package server
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/arfan21/golang-mygram/config/configdb"
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +19,12 @@ func Start() error {
 
 	r.Use(gin.Recovery())
 
-	r.Run()
+	port := os.Getenv("PORT")
+
+	if len(port) == 0 {
+		port = "8000"
+	}
+
+	r.Run(fmt.Sprintf(":%s", port))
 	return nil
 }

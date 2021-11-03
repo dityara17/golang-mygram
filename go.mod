@@ -49,6 +49,23 @@ require (
 	github.com/jackc/pgx/v4 v4.13.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
+	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
+	github.com/swaggo/gin-swagger v1.3.2
+	github.com/swaggo/swag v1.5.1
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+)
+
+require (
+	github.com/PuerkitoBio/purell v1.1.0 // indirect
+	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
+	github.com/go-openapi/jsonpointer v0.17.0 // indirect
+	github.com/go-openapi/jsonreference v0.19.0 // indirect
+	github.com/go-openapi/spec v0.19.0 // indirect
+	github.com/go-openapi/swag v0.17.0 // indirect
+	github.com/jackc/pgerrcode v0.0.0-20201024163028-a0d42d470451
+	github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329 // indirect
+	github.com/pkg/errors v0.8.1 // indirect
+	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
+	golang.org/x/tools v0.0.0-20200103221440-774c71fcf114 // indirect
 )

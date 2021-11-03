@@ -61,7 +61,5 @@ func (dbConfig *pgConfig) String() string {
 		)
 	}
 
-	fmt.Println(dsn)
-
 	return dsn
 }

@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/arfan21/golang-mygram/entity"
-	"github.com/arfan21/golang-mygram/exception"
 	"github.com/arfan21/golang-mygram/helper"
 	"github.com/arfan21/golang-mygram/model/modeluser"
 	"github.com/arfan21/golang-mygram/repository/repositoryuser"
@@ -31,7 +30,7 @@ func New(repo repositoryuser.RepositoryUser) ServiceUser {
 func (s *service) Create(data modeluser.Request) (modeluser.Response, error) {
 	err := validation.ValidateUserCreate(data, s.repo)
 	if err != nil {
-		return modeluser.Response{}, exception.ErrorValidation{Message: err}
+		return modeluser.Response{}, err
 	}
 
 	entityUser := new(entity.User)
@@ -59,7 +58,7 @@ func (s *service) Create(data modeluser.Request) (modeluser.Response, error) {
 func (s *service) Login(data modeluser.RequestLogin) (modeluser.ResponseLogin, error) {
 	err := validation.ValidateUserLogin(data)
 	if err != nil {
-		return modeluser.ResponseLogin{}, exception.ErrorValidation{Message: err}
+		return modeluser.ResponseLogin{}, err
 	}
 
 	dataUser, err := s.repo.Login(data.Email)
@@ -86,7 +85,7 @@ func (s *service) Login(data modeluser.RequestLogin) (modeluser.ResponseLogin, e
 func (s *service) Update(data modeluser.Request) (modeluser.Response, error) {
 	err := validation.ValidateUserUpdate(data)
 	if err != nil {
-		return modeluser.Response{}, exception.ErrorValidation{Message: err}
+		return modeluser.Response{}, err
 	}
 
 	entityUser := entity.User{}

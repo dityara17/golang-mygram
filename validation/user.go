@@ -25,7 +25,7 @@ func ValidateUserCreate(data modeluser.Request, repo repositoryuser.RepositoryUs
 		"email":    validation.Validate(data.Email, validation.Required, is.Email, validation.By(isEmailExist(repo))),
 		"username": validation.Validate(data.Username, validation.Required),
 		"password": validation.Validate(data.Password, validation.Required, validation.Length(8, 20)),
-		"age":      validation.Validate(data.Age, validation.Required, validation.Min(8)),
+		"age":      validation.Validate(data.Age, validation.Required),
 	}.Filter()
 }
 
