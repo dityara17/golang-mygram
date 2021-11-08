@@ -11,7 +11,6 @@ import (
 type ServicePhoto interface {
 	Create(data modelphoto.Request) (modelphoto.Response, error)
 	GetPhotos() ([]modelphoto.ResponseGet, error)
-	GetPhotoByPhotoID(photoID int) ([]modelphoto.Response, error)
 	Update(data modelphoto.Request, photoID int) (modelphoto.ResponseUpdate, error)
 	Delete(photoID int) error
 }
@@ -75,24 +74,6 @@ func (service *service) GetPhotos() ([]modelphoto.ResponseGet, error) {
 	}
 
 	return response, nil
-}
-
-func (service *service) GetPhotoByPhotoID(photoID int) ([]modelphoto.Response, error) {
-	//uid := 2
-	//resPhotos, err := service.RepositoryPhoto.GetPhotoByUserID(uid)
-	//fmt.Println("LOG.D",resPhotos)
-	//if err != nil {
-	//	return []modelphoto.Response{}, nil
-	//}
-	//
-	//var response []modelphoto.Response
-	//for _, photo := range resPhotos{
-	//	tempResp := modelphoto.Response{}
-	//	copier.Copy(tempResp, &photo)
-	//	response = append(response, tempResp)
-	//}
-
-	return []modelphoto.Response{}, nil
 }
 
 func (service *service) Create(data modelphoto.Request) (modelphoto.Response, error) {

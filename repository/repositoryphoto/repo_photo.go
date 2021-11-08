@@ -8,7 +8,6 @@ import (
 type RepositoryPhoto interface {
 	Create(data entity.Photo) (entity.Photo, error)
 	GetPhotos() ([]entity.Photo, error)
-	GetPhotoByPhotoID(id int) (entity.Photo, error)
 	Update(data entity.Photo) (entity.Photo, error)
 	Delete(id int) error
 }
@@ -38,16 +37,6 @@ func (r *repository) Delete(id int) error {
 		return err
 	}
 	return nil
-}
-
-// GetPhotoByPhotoID return single record
-func (r *repository) GetPhotoByPhotoID(id int) (entity.Photo, error) {
-	var photo entity.Photo
-	err := r.db.Where("id = ?", id).First(&photo).Error
-	if err != nil {
-		return entity.Photo{}, err
-	}
-	return photo, nil
 }
 
 // Create data Photo
