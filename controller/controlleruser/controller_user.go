@@ -87,9 +87,11 @@ func (c *controller) Login(ctx *gin.Context) {
 // @Description Update user
 // @Accept  json
 // @Produce  json
+// @Param Authorization header string true "Bearer + user token"
 // @Param data body modeluser.ExampleRequestUpdate true "data"
 // @Success 200 {object} helper.BaseResponse{data=modeluser.Response} "OK"
 // @Failure 400 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Bad Request"
+// @Failure 401 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Unauthorization"
 // @Router /users [PUT]
 func (c *controller) Update(ctx *gin.Context) {
 	data := new(modeluser.Request)
