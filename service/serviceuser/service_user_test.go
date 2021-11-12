@@ -49,7 +49,7 @@ func TestServiceUser(t *testing.T) {
 	suite.Run(t, testSuite)
 }
 
-func (suite *ServiceUserTestSuite) TestCreateUser() {
+func (suite *ServiceUserTestSuite) Test_A_CreateUser() {
 	suite.T().Run("Test create user success", func(t *testing.T) {
 		repoReturn := entity.User{}
 		copier.Copy(&repoReturn, &suite.defaultPayload)
@@ -95,7 +95,7 @@ func (suite *ServiceUserTestSuite) TestCreateUser() {
 	})
 }
 
-func (suite *ServiceUserTestSuite) TestUserLogin() {
+func (suite *ServiceUserTestSuite) Test_B_UserLogin() {
 	suite.T().Run("User login success", func(t *testing.T) {
 		repoReturn := entity.User{}
 		copier.Copy(&repoReturn, &suite.defaultPayload)
@@ -155,7 +155,7 @@ func (suite *ServiceUserTestSuite) TestUserLogin() {
 	})
 }
 
-func (suite *ServiceUserTestSuite) TestUpdate() {
+func (suite *ServiceUserTestSuite) Test_C_Update() {
 	suite.T().Run("Update user succes", func(t *testing.T) {
 		updatePayload := modeluser.Request{}
 		copier.Copy(&updatePayload, &suite.defaultPayload)
@@ -208,4 +208,23 @@ func (suite *ServiceUserTestSuite) TestUpdate() {
 		assert.Error(t, err)
 	})
 
+}
+
+func (suite *ServiceUserTestSuite) Test_D_Delete() {
+	suite.T().Run("Delete user success", func(t *testing.T) {
+		suite.repo.On("DeleteByID", mock.Anything).Return(nil).Once()
+
+		err := suite.srv.DeleteByID(suite.defaultPayload.ID)
+
+		assert.NoError(t, err)
+	})
+
+	suite.T().Run("Delete user failed, user not found", func(t *testing.T) {
+		suite.repo.On("DeleteByID", mock.Anything).Return(gorm.ErrRecordNotFound).Once()
+
+		err := suite.srv.DeleteByID(0)
+
+		assert.Error(t, err)
+		assert.True(t, errors.Is(err, gorm.ErrRecordNotFound))
+	})
 }

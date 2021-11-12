@@ -192,6 +192,12 @@ definitions:
         example: jhondoe
         type: string
     type: object
+  modeluser.ExampleResponseDelete:
+    properties:
+      message:
+        example: your account has been successfully deleted
+        type: string
+    type: object
   modeluser.Request:
     properties:
       age:
@@ -656,6 +662,58 @@ paths:
       tags:
       - photos
   /users:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user
+      parameters:
+      - description: Bearer + user token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/modeluser.ExampleResponseDelete'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BaseResponse'
+            - properties:
+                errors:
+                  $ref: '#/definitions/helper.ExampleErrorResponse'
+              type: object
+        "401":
+          description: Unauthorization
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BaseResponse'
+            - properties:
+                errors:
+                  $ref: '#/definitions/helper.ExampleErrorResponse'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BaseResponse'
+            - properties:
+                errors:
+                  $ref: '#/definitions/helper.ExampleErrorResponse'
+              type: object
+      summary: Delete user
+      tags:
+      - users
     put:
       consumes:
       - application/json

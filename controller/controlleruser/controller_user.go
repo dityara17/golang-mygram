@@ -13,6 +13,7 @@ type ControllerUser interface {
 	Create(ctx *gin.Context)
 	Login(ctx *gin.Context)
 	Update(ctx *gin.Context)
+	DeleteByID(ctx *gin.Context)
 }
 
 type controller struct {
@@ -113,4 +114,29 @@ func (c *controller) Update(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusOK, response, nil))
+}
+
+// DeleteByID user
+// @Tags users
+// @Summary Delete user
+// @Description Delete user
+// @Accept  json
+// @Produce  json
+// @Param Authorization header string true "Bearer + user token"
+// @Success 200 {object} helper.BaseResponse{data=modeluser.ExampleResponseDelete} "OK"
+// @Failure 400 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Bad Request"
+// @Failure 404 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Not Found"
+// @Failure 401 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Unauthorization"
+// @Router /users [DELETE]
+func (c *controller) DeleteByID(ctx *gin.Context) {
+	id := ctx.MustGet("user_id")
+
+	err := c.srv.DeleteByID(id.(uint))
+
+	if err != nil {
+		ctx.JSON(helper.GetStatusCode(err), helper.NewResponse(helper.GetStatusCode(err), nil, err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusOK, map[string]interface{}{"message": "your account has been successfully deleted"}, nil))
 }

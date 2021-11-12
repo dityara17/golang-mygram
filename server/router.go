@@ -29,6 +29,7 @@ func NewRouter(r *gin.Engine, db *gorm.DB) {
 	routeUser.POST("/register", ctrlUser.Create)
 	routeUser.POST("/login", ctrlUser.Login)
 	routeUser.PUT("", middleware.Authorization, ctrlUser.Update)
+	routeUser.DELETE("", middleware.Authorization, ctrlUser.DeleteByID)
 
 	// route photos
 	repoPhoto := repositoryphoto.New(db)

@@ -32,3 +32,7 @@ type ExampleRequestUpdate struct {
 	Username string `json:"username" example:"jhondoe"`
 	Email    string `json:"email" example:"test@example.com"`
 }
+
+type ExampleResponseDelete struct {
+	Message string `json:"message" example:"your account has been successfully deleted"`
+}

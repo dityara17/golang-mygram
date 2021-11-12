@@ -48,7 +48,7 @@ func TestRepositoryUser(t *testing.T) {
 	suite.Run(t, testSuite)
 }
 
-func (suite *RepoUserTestSuite) TestCreateUser() {
+func (suite *RepoUserTestSuite) Test_A_CreateUser() {
 	suite.T().Run("Create User Success", func(t *testing.T) {
 
 		createdUser, err := suite.repo.Create(suite.defaultPayload)
@@ -63,7 +63,7 @@ func (suite *RepoUserTestSuite) TestCreateUser() {
 	})
 }
 
-func (suite *RepoUserTestSuite) TestIsEmailExist() {
+func (suite *RepoUserTestSuite) Test_B_IsEmailExist() {
 
 	suite.T().Run("Is Email Exist Success", func(t *testing.T) {
 
@@ -80,7 +80,7 @@ func (suite *RepoUserTestSuite) TestIsEmailExist() {
 	})
 }
 
-func (suite *RepoUserTestSuite) TestLogin() {
+func (suite *RepoUserTestSuite) Test_C_Login() {
 	suite.T().Run("Login success", func(t *testing.T) {
 		data, err := suite.repo.Login(suite.defaultPayload.Email)
 		assert.NoError(t, err)
@@ -97,7 +97,7 @@ func (suite *RepoUserTestSuite) TestLogin() {
 	})
 }
 
-func (suite *RepoUserTestSuite) TestUpdate() {
+func (suite *RepoUserTestSuite) Test_D_Update() {
 	suite.T().Run("Update success", func(t *testing.T) {
 		updatePayload := entity.User{}
 		copier.Copy(&updatePayload, &suite.defaultPayload)
@@ -117,6 +117,18 @@ func (suite *RepoUserTestSuite) TestUpdate() {
 		updatePayload.Email = "updatefail@example.com"
 		updatePayload.ID = 0
 		_, err := suite.repo.Update(updatePayload)
+		assert.Error(t, err)
+	})
+}
+
+func (suite *RepoUserTestSuite) Test_E_Delete() {
+	suite.T().Run("Delete Success", func(t *testing.T) {
+		err := suite.repo.DeleteByID(suite.defaultPayload.ID)
+		assert.NoError(t, err)
+	})
+
+	suite.T().Run("Delete Failed", func(t *testing.T) {
+		err := suite.repo.DeleteByID(0)
 		assert.Error(t, err)
 	})
 }

@@ -17,6 +17,7 @@ type ServiceUser interface {
 	Create(data modeluser.Request) (modeluser.Response, error)
 	Login(data modeluser.RequestLogin) (modeluser.ResponseLogin, error)
 	Update(data modeluser.Request) (modeluser.Response, error)
+	DeleteByID(id uint) error
 }
 
 type service struct {
@@ -102,4 +103,8 @@ func (s *service) Update(data modeluser.Request) (modeluser.Response, error) {
 	copier.Copy(&resp, &updatedUser)
 
 	return resp, nil
+}
+
+func (s *service) DeleteByID(id uint) error {
+	return s.repo.DeleteByID(id)
 }

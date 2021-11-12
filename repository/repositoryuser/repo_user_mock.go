@@ -33,6 +33,20 @@ func (_m *RepositoryUserMock) Create(data entity.User) (entity.User, error) {
 	return r0, r1
 }
 
+// DeleteByID provides a mock function with given fields: id
+func (_m *RepositoryUserMock) DeleteByID(id uint) error {
+	ret := _m.Called(id)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(uint) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // IsEmailExist provides a mock function with given fields: email
 func (_m *RepositoryUserMock) IsEmailExist(email string) error {
 	ret := _m.Called(email)
