@@ -16,6 +16,9 @@ type Response struct {
 	UserID         uint      `json:"user_id"`
 }
 
+type ResponseListWrapper struct {
+	SocialMedias []ResponseList `json:"social_medias"`
+}
 type ResponseList struct {
 	ID             uint      `json:"id"`
 	CreatedAt      time.Time `json:"created_at,omitempty"`
