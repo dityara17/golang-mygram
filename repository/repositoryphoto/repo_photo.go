@@ -10,6 +10,7 @@ type RepositoryPhoto interface {
 	GetPhotos() ([]entity.Photo, error)
 	Update(data entity.Photo) (entity.Photo, error)
 	Delete(id int) error
+	GetPhotoByUserID(id uint) (entity.Photo, error)
 }
 
 type repository struct {
@@ -54,6 +55,16 @@ func (r *repository) GetPhotos() ([]entity.Photo, error) {
 	err := r.db.Preload("User").Find(&photo).Error
 	if err != nil {
 		return []entity.Photo{}, err
+	}
+	return photo, nil
+}
+
+// GetPhoto By User ID
+func (r *repository) GetPhotoByUserID(id uint) (entity.Photo, error) {
+	var photo entity.Photo
+	err := r.db.Preload("User").Where("user_id = ?", id).First(&photo).Error
+	if err != nil {
+		return entity.Photo{}, err
 	}
 	return photo, nil
 }
