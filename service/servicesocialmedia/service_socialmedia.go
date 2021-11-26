@@ -12,6 +12,8 @@ import (
 type ServiceSocialMedia interface {
 	Create(data modelsocialmedia.Request) (modelsocialmedia.Response, error)
 	GetList() (modelsocialmedia.ResponseListWrapper, error)
+	UpdateByID(data modelsocialmedia.Request) (modelsocialmedia.Response, error)
+	DeleteByID(id uint) error
 }
 
 type service struct {
@@ -66,4 +68,33 @@ func (srv *service) GetList() (modelsocialmedia.ResponseListWrapper, error) {
 	}
 
 	return modelsocialmedia.ResponseListWrapper{SocialMedias: responseList}, nil
+}
+
+func (srv *service) UpdateByID(data modelsocialmedia.Request) (modelsocialmedia.Response, error) {
+	err := validation.ValidateSocialMediaCreate(data)
+	if err != nil {
+		return modelsocialmedia.Response{}, err
+	}
+
+	entitySocialMedia := new(entity.SocialMedia)
+	copier.Copy(&entitySocialMedia, &data)
+
+	updatedSocialMedia, err := srv.repository.UpdateByID(*entitySocialMedia)
+	if err != nil {
+		return modelsocialmedia.Response{}, err
+	}
+
+	response := modelsocialmedia.Response{}
+	copier.Copy(&response, &updatedSocialMedia)
+
+	return response, nil
+}
+
+func (srv *service) DeleteByID(id uint) error {
+	err := srv.repository.DeleteByID(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
