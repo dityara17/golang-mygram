@@ -3,6 +3,7 @@ package modelsocialmedia
 import "time"
 
 type Request struct {
+	ID             uint   `json:"id" swaggerignore:"true"`
 	Name           string `json:"name"`
 	SocialMediaUrl string `json:"social_media_url"`
 }
