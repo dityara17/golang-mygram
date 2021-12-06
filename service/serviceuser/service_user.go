@@ -2,7 +2,6 @@ package serviceuser
 
 import (
 	"errors"
-	"log"
 
 	"github.com/arfan21/golang-mygram/entity"
 	"github.com/arfan21/golang-mygram/helper"
@@ -93,7 +92,6 @@ func (s *service) Update(data modeluser.Request) (modeluser.Response, error) {
 	copier.Copy(&entityUser, &data)
 
 	updatedUser, err := s.repo.Update(entityUser)
-	log.Println(updatedUser, err)
 	if err != nil {
 		return modeluser.Response{}, err
 	}
