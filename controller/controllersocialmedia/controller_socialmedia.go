@@ -44,6 +44,8 @@ func (c *controller) Create(ctx *gin.Context) {
 		return
 	}
 
+	data.UserID = ctx.MustGet("user_id").(uint)
+
 	response, err := c.srv.Create(*data)
 	if err != nil {
 		ctx.JSON(helper.GetStatusCode(err), helper.NewResponse(helper.GetStatusCode(err), nil, err))

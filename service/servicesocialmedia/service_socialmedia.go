@@ -1,12 +1,15 @@
 package servicesocialmedia
 
 import (
+	"errors"
+
 	"github.com/arfan21/golang-mygram/entity"
 	"github.com/arfan21/golang-mygram/model/modelsocialmedia"
 	"github.com/arfan21/golang-mygram/repository/repositoryphoto"
 	"github.com/arfan21/golang-mygram/repository/repositorysocialmedia"
 	"github.com/arfan21/golang-mygram/validation"
 	"github.com/jinzhu/copier"
+	"gorm.io/gorm"
 )
 
 type ServiceSocialMedia interface {
@@ -56,13 +59,16 @@ func (srv *service) GetList() (modelsocialmedia.ResponseListWrapper, error) {
 	for _, socialMedia := range listSocialMedia {
 		//get photo by user id
 		photo, err := srv.repoPhoto.GetPhotoByUserID(socialMedia.UserID)
-		if err != nil {
+
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return modelsocialmedia.ResponseListWrapper{}, err
 		}
 
 		response := new(modelsocialmedia.ResponseList)
 		copier.Copy(&response, &socialMedia)
-		response.User.ProfileImageUrl = photo.PhotoURL
+		if photo.PhotoURL != "" {
+			response.User.ProfileImageUrl = photo.PhotoURL
+		}
 
 		responseList = append(responseList, *response)
 	}

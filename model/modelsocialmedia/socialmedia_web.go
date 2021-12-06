@@ -6,6 +6,7 @@ type Request struct {
 	ID             uint   `json:"id" swaggerignore:"true"`
 	Name           string `json:"name"`
 	SocialMediaUrl string `json:"social_media_url"`
+	UserID         uint   `json:"user_id" swaggerignore:"true"`
 }
 
 type Response struct {
