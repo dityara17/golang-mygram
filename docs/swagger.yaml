@@ -268,8 +268,6 @@ definitions:
       email:
         example: test@example.com
         type: string
-      id:
-        type: integer
       password:
         example: password
         type: string
@@ -533,7 +531,9 @@ paths:
             - $ref: '#/definitions/helper.BaseResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/modelphoto.ResponseGet'
+                  items:
+                    $ref: '#/definitions/modelphoto.ResponseGet'
+                  type: array
               type: object
         "400":
           description: Bad Request

@@ -3,6 +3,7 @@ package repositoryuser
 import (
 	"errors"
 
+	"github.com/arfan21/golang-mygram/constant"
 	"github.com/arfan21/golang-mygram/entity"
 	"gorm.io/gorm"
 )
@@ -43,7 +44,7 @@ func (r *repository) IsEmailExist(email string) error {
 		return err
 	}
 
-	return errors.New("email already exists")
+	return constant.ErrorEmailAlreadyExists
 }
 
 func (r *repository) Login(email string) (entity.User, error) {

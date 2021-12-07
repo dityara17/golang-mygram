@@ -385,7 +385,10 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/modelphoto.ResponseGet"
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/modelphoto.ResponseGet"
+                                            }
                                         }
                                     }
                                 }
@@ -1737,9 +1740,6 @@
                 "email": {
                     "type": "string",
                     "example": "test@example.com"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "password": {
                     "type": "string",

@@ -23,7 +23,7 @@ func New(db *gorm.DB) RepositoryPhoto {
 
 // Update photo from DB
 func (r *repository) Update(data entity.Photo) (entity.Photo, error) {
-	err := r.db.Where("id = ?", data.ID).Updates(&data).Error
+	err := r.db.Updates(&data).First(&data).Error
 	if err != nil {
 		return entity.Photo{}, err
 	}
@@ -33,7 +33,8 @@ func (r *repository) Update(data entity.Photo) (entity.Photo, error) {
 // Delete photo from DB by photo ID
 func (r *repository) Delete(id int) error {
 	photo := entity.Photo{}
-	err := r.db.Where("id = ?", id).Delete(&photo).Error
+	photo.ID = uint(id)
+	err := r.db.First(&photo).Where("id = ?", id).Delete(&photo).Error
 	if err != nil {
 		return err
 	}

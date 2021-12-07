@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/arfan21/golang-mygram/constant"
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgerrcode"
@@ -11,6 +12,14 @@ import (
 )
 
 func GetStatusCode(err error) int {
+	if err.Error() == constant.ErrorEmailAlreadyExists.Error() {
+		return http.StatusConflict
+	}
+
+	if err.Error() == constant.ErrorInvalidLogin.Error() {
+		return http.StatusBadRequest
+	}
+
 	if isValidationError(err) {
 		return http.StatusBadRequest
 	}
