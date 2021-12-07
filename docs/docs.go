@@ -400,7 +400,10 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/modelphoto.ResponseGet"
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/modelphoto.ResponseGet"
+                                            }
                                         }
                                     }
                                 }
@@ -1753,9 +1756,6 @@ var doc = `{
                     "type": "string",
                     "example": "test@example.com"
                 },
-                "id": {
-                    "type": "integer"
-                },
                 "password": {
                     "type": "string",
                     "example": "password"
@@ -1867,5 +1867,5 @@ func (s *s) ReadDoc() string {
 }
 
 func init() {
-	swag.Register(swag.Name, &s{})
+	swag.Register("swagger", &s{})
 }

@@ -131,7 +131,7 @@ func (c *controller) Create(ctx *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param Authorization header string true "Bearer + user token"
-// @Success 200 {object} helper.BaseResponse{data=modelphoto.ResponseGet} "SUCCESS"
+// @Success 200 {object} helper.BaseResponse{data=[]modelphoto.ResponseGet} "SUCCESS"
 // @Failure 400 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Bad Request"
 // @Failure 401 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Unauthorization"
 // @Failure 404 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Not Found"

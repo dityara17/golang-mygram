@@ -139,7 +139,7 @@ func (c *controller) Delete(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, helper.NewResponse(http.StatusBadRequest, nil, err))
 		return
 	}
-	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusAccepted, "Your comment successfully deleted", nil))
+	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusOK, "Your comment successfully deleted", nil))
 }
 
 func New(srv servicecomment.ServiceComment) ControllerComment {
