@@ -47,7 +47,7 @@ func (dbConfig *pgConfig) String() string {
 	dsn := ""
 	if mode == "production" {
 		dsn = fmt.Sprintf(
-			"host=%s user=%s password=%s dbname=%s port=%s sslmode=enable TimeZone=Asia/Jakarta",
+			"host=%s user=%s password=%s dbname=%s port=%s sslmode=require TimeZone=Asia/Jakarta",
 			dbConfig.Host,
 			dbConfig.User,
 			dbConfig.Password,
