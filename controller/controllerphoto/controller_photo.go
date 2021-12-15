@@ -12,7 +12,7 @@ import (
 
 type ControllerPhoto interface {
 	Create(ctx *gin.Context)
-	GetByUserID(ctx *gin.Context)
+	GetPhotos(ctx *gin.Context)
 	Update(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 }
@@ -124,21 +124,19 @@ func (c *controller) Create(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, helper.NewResponse(http.StatusCreated, response, nil))
 }
 
-// GetByUserID a photo
+// GetPhotos a photo
 // @Tags photos
-// @Summary GetByUserID a photo
-// @Description GetByUserID a photo
+// @Summary GetPhotos a photo
+// @Description GetPhotos a photo
 // @Accept  json
 // @Produce  json
 // @Param Authorization header string true "Bearer + user token"
-// @Param photoID path int true "ID of the photo"
-// @Param data body modelphoto.Request true "data"
-// @Success 200 {object} helper.BaseResponse{data=modelphoto.ResponseGet} "SUCCESS"
+// @Success 200 {object} helper.BaseResponse{data=[]modelphoto.ResponseGet} "SUCCESS"
 // @Failure 400 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Bad Request"
 // @Failure 401 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Unauthorization"
 // @Failure 404 {object} helper.BaseResponse{errors=helper.ExampleErrorResponse} "Not Found"
 // @Router /photos [GET]
-func (c *controller) GetByUserID(ctx *gin.Context) {
+func (c *controller) GetPhotos(ctx *gin.Context) {
 	response, err := c.srv.GetPhotos()
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, helper.NewResponse(http.StatusBadRequest, nil, err))

@@ -44,7 +44,8 @@ func (r *repository) Update(data entity.Comment) (entity.Comment, error) {
 // Delete comment by comment id return a error or nil
 func (r repository) Delete(commentID uint) error {
 	var comment entity.Comment
-	err := r.db.Where("id = ?", commentID).Delete(&comment).Error
+	comment.ID = commentID
+	err := r.db.First(&comment).Where("id = ?", commentID).Delete(&comment).Error
 	if err != nil {
 		return err
 	}

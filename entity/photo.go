@@ -7,7 +7,7 @@ type Photo struct {
 	Title     string    `json:"title" gorm:"not null"`
 	Caption   string    `json:"caption" gorm:"null"`
 	PhotoURL  string    `json:"photo_url" gorm:"not null"`
-	UserID    int       `json:"userId"`
+	UserID    uint      `json:"user_id"`
 	User      *User     `gorm:"foreignKey:UserID"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`

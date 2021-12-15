@@ -1,9 +1,7 @@
 package serviceuser
 
 import (
-	"errors"
-	"log"
-
+	"github.com/arfan21/golang-mygram/constant"
 	"github.com/arfan21/golang-mygram/entity"
 	"github.com/arfan21/golang-mygram/helper"
 	"github.com/arfan21/golang-mygram/model/modeluser"
@@ -52,6 +50,7 @@ func (s *service) Create(data modeluser.Request) (modeluser.Response, error) {
 	resp := modeluser.Response{}
 
 	copier.Copy(&resp, &createdUser)
+	resp.UpdatedAt = nil
 
 	return resp, nil
 }
@@ -69,7 +68,7 @@ func (s *service) Login(data modeluser.RequestLogin) (modeluser.ResponseLogin, e
 
 	err = bcrypt.CompareHashAndPassword([]byte(dataUser.Password), []byte(data.Password))
 	if err != nil {
-		return modeluser.ResponseLogin{}, errors.New("invalid email or password")
+		return modeluser.ResponseLogin{}, constant.ErrorInvalidLogin
 	}
 
 	token, err := helper.NewJwt(dataUser.ID)
@@ -93,7 +92,6 @@ func (s *service) Update(data modeluser.Request) (modeluser.Response, error) {
 	copier.Copy(&entityUser, &data)
 
 	updatedUser, err := s.repo.Update(entityUser)
-	log.Println(updatedUser, err)
 	if err != nil {
 		return modeluser.Response{}, err
 	}
