@@ -1,2 +1,2 @@
 service : buat logic nya
-repository : buat query
+repository : buat query nya
